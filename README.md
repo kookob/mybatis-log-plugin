@@ -1,5 +1,6 @@
 MyBatis Log Plugin
 ==============================
+![](https://github.com/kookob/mybatis-log-plugin/snapshot/MyBatisLogPlugin.png)
 
 **English Introduction**
 ---
@@ -8,7 +9,7 @@ It will generate sql statements with replace ? to the really param value.<br/>
 Through the "Tools -> MyBatis Log Plugin" menu you can tail the sql log.<br/>
 You can selected the "Filter" button on the left to filter the contents don't wanna display.<br/>
 You can selected the "Format Sql" button on the left to format the generate sql statements.<br/>
-Prerequisite: sql log must contain "Preparing:" and "Parameters:" <br/>
+**Prerequisite: sql log must contain "Preparing:" and "Parameters:" **<br/>
 
 The left buttons function:<br/>
 
@@ -27,6 +28,8 @@ Support the mybatis's output format below:<br/>
 `2016-11-11 16:46:29.343 DEBUG selectSql1 -  ==> Parameters: hello(String)`
 
 Use "Preparing:" and "Parameters:" characters to split the log sql.<br/>
+And it will output the whole sql:<br/>
+`select * from t_table where name = 'hello';`<br/>
 
 **Download Plugin**
 ---
@@ -43,7 +46,7 @@ Use "Preparing:" and "Parameters:" characters to split the log sql.<br/>
 通过 "Tools -> MyBatis Log Plugin" 这个菜单可以实时输出sql日志。<br/>
 点击窗口左边的 "Filter" 按钮，可以过滤不想要输出的sql语句。<br/>
 点击窗口左边的 "Format Sql" 按钮，可以格式化输出的sql语句。<br/>
-前提条件：输出的sql日志必须包含"Preparing:"和"Parameters:"才能正常解析。<br/>
+**前提条件：输出的sql日志必须包含"Preparing:"和"Parameters:"才能正常解析。**<br/>
 
 左边几个按钮的作用：<br/>
 
@@ -61,6 +64,8 @@ Use "Preparing:" and "Parameters:" characters to split the log sql.<br/>
 `2016-11-11 16:46:29.343 DEBUG selectSql1 -  ==> Parameters: hello(String)`
 
 以 "Preparing:" 和 "Parameters:" 作为分割符进行解析。<br/>
+接着输出的完成sql语句如下：<br/>
+`select * from t_table where name = 'hello';`<br/>
 
 **插件下载**
 ---
