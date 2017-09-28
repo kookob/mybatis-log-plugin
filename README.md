@@ -1,6 +1,6 @@
 MyBatis Log Plugin
 ==============================
-![](https://github.com/kookob/mybatis-log-plugin/snapshot/MyBatisLogPlugin.png)
+![MyBatisLogPlugin.gif](https://raw.githubusercontent.com/kookob/mybatis-log-plugin/master/snapshot/MyBatisLogPlugin.gif)
 
 **English Introduction**
 ---
