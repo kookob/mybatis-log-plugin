@@ -36,17 +36,15 @@
         <![CDATA[
     <ul>
       <b>2.0.0</b>
-          <li>"Restore Sql for iBatis/MyBatis" 插件停止维护。</li>
-          <li>改用全新的名称 "MyBatis Log Plugin"。</li>
-          <li>修复所有的参数格式问题。</li>
-          <li>修复跨项目输出的问题。</li>
+          <li>"Restore Sql for iBatis/MyBatis" has stop maintenance.</li>
+          <li>Use the new name: "MyBatis Log Plugin".</li>
+          <li>Fix all parameter format issues.</li>
       --------------------------------------------------------------
       <br/>
       <b>2.0.0</b>
           <li>"Restore Sql for iBatis/MyBatis" 插件停止维护。</li>
-          <li>改用全新的名称 "MyBatis Log Plugin"。</li>
+          <li>改用全新的名称: "MyBatis Log Plugin"。</li>
           <li>修复所有的参数格式问题。</li>
-          <li>修复跨项目输出的问题。</li>
     </ul>
     ]]>
     </change-notes>

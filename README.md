@@ -9,7 +9,7 @@ It will generate sql statements with replace ? to the really param value.<br/>
 Through the "Tools -> MyBatis Log Plugin" menu you can tail the sql log.<br/>
 You can selected the "Filter" button on the left to filter the contents don't wanna display.<br/>
 You can selected the "Format Sql" button on the left to format the generate sql statements.<br/>
-**Prerequisite: sql log must contain "Preparing:" and "Parameters:" **<br/>
+**Prerequisite: sql log must contain "Preparing:" and "Parameters:"**<br/>
 
 The left buttons function:<br/>
 
