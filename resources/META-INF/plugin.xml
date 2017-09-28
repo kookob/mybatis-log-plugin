@@ -1,0 +1,98 @@
+<idea-plugin version="2">
+    <id>MyBatisLogPlugin</id>
+    <name>MyBatis Log Plugin</name>
+    <version>2.0.0</version>
+    <vendor email="kookob@gmail.com" url="">ob</vendor>
+
+    <description>
+        <![CDATA[
+      MyBatis Log Plugin
+      <br/>
+      -----------------------------------------------------------------------------------------------------------------------
+      <br/>
+      Restore the mybatis generate sql to original whole sql.<br/>
+      It will generate sql statements with replace ? to the really param value.<br/>
+      Through the "Tools -> MyBatis Log Plugin" menu you can tail the sql log.<br/>
+      You can selected the "Filter" button on the left to filter the contents don't wanna display.<br/>
+      You can selected the "Format Sql" button on the left to format the generate sql statements.<br/>
+      You can select the console sql log and right click "Restore Sql for Selection" menu to restore sql.<br/>
+      Prerequisite: sql log must contain "Preparing:" and "Parameters:" <br/>
+      -----------------------------------------------------------------------------------------------------------------------
+      <br/>
+      把 mybatis 输出的sql日志还原成完整的sql语句。<br/>
+      将日志输出的sql语句中的问号 ? 替换成真正的参数值。<br/>
+      通过 "Tools -> MyBatis Log Plugin" 菜单或快捷键 "Ctrl+Shift+Alt+O" 启用。<br/>
+      点击窗口左边的 "Filter" 按钮，可以过滤不想要输出的sql语句。<br/>
+      点击窗口左边的 "Format Sql" 按钮，可以格式化输出的sql语句。<br/>
+      选中console的sql日志，右击 "Restore Sql for Selection" 菜单可以还原sql语句。<br/>
+      前提条件：输出的sql日志必须包含"Preparing:"和"Parameters:"才能正常解析。<br/>
+      <br/>
+      <a href="https://plugins.jetbrains.com/plugin/9229">Plugin</a> | <a href="https://github.com/kookob/mybatis-log-plugin">Github</a> | <a href="https://github.com/kookob/mybatis-log-plugin/issues">Issues</a><br/>
+      <br/>
+    ]]>
+    </description>
+
+    <change-notes>
+        <![CDATA[
+    <ul>
+      <b>2.0.0</b>
+          <li>"Restore Sql for iBatis/MyBatis" 插件停止维护。</li>
+          <li>改用全新的名称 "MyBatis Log Plugin"。</li>
+          <li>修复所有的参数格式问题。</li>
+          <li>修复跨项目输出的问题。</li>
+      --------------------------------------------------------------
+      <br/>
+      <b>2.0.0</b>
+          <li>"Restore Sql for iBatis/MyBatis" 插件停止维护。</li>
+          <li>改用全新的名称 "MyBatis Log Plugin"。</li>
+          <li>修复所有的参数格式问题。</li>
+          <li>修复跨项目输出的问题。</li>
+    </ul>
+    ]]>
+    </change-notes>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="141.0"/>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+        <consoleFilterProvider implementation="mybatis.log.MyBatisLogProvider"/>
+        <executor implementation="mybatis.log.tail.TailRunExecutor" id="MyBatisLogTail"/>
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+        <action id="TailMyBatisLog" class="mybatis.log.action.TailMyBatisLog" icon="/mybatis/log/icon/mybatis.png"
+                text="MyBatis Log Plugin" description="MyBatis Log Plugin">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt shift O"/>
+        </action>
+
+        <!-- Translate with Google -->
+        <!--<action class="GoogleTranslateAction" id="GoogleTranslate" text="Translate with Google" description="Translate with Google">
+          <add-to-group group-id="EditorPopupMenu" anchor="after" relative-to-action="$SearchWeb"/>
+          <add-to-group group-id="ConsoleEditorPopupMenu" anchor="after" relative-to-action="$SearchWeb"/>
+        </action>-->
+
+        <!-- Search with Baidu -->
+        <!--<action class="BaiduSearchAction" id="BaiduSearch" text="Search with Baidu" description="Search with Baidu">
+          <add-to-group group-id="EditorPopupMenu" anchor="after" relative-to-action="GoogleTranslate"/>
+          <add-to-group group-id="ConsoleEditorPopupMenu" anchor="after" relative-to-action="GoogleTranslate"/>
+        </action>-->
+
+        <!-- restore sql for selection -->
+        <action class="mybatis.log.action.RestoreSqlForSelection" id="RestoreSqlAction" text="Restore Sql for Selection"
+                description="Restore Sql for Selection">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+            <add-to-group group-id="ConsoleEditorPopupMenu" anchor="before" relative-to-action="ConsoleView.ClearAll"/>
+        </action>
+
+    </actions>
+
+</idea-plugin>
