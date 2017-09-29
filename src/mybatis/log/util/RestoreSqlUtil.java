@@ -19,6 +19,7 @@ public class RestoreSqlUtil {
     private static final String REPLACE_MARK = "_o_?_b_";
     private static final String PARAM_TYPE_REGEX = "\\(\\D{3,30}?\\),{0,1}";
 
+    //参数格式类型，暂列下面几种
     static {
         needAssembledType.add("(String)");
         needAssembledType.add("(Timestamp)");
@@ -35,6 +36,12 @@ public class RestoreSqlUtil {
         return "";
     }
 
+    /**
+     * Sql语句还原，整个插件的核心就是该方法
+     * @param preparing
+     * @param parameters
+     * @return
+     */
     public static String restoreSql(final String preparing, final String parameters) {
         String restoreSql = "";
         String preparingSql = "";
@@ -83,6 +90,10 @@ public class RestoreSqlUtil {
             if(!restoreSql.endsWith(";")) {
                 restoreSql += ";";
             }
+            if(restoreSql.contains(REPLACE_MARK)) {
+                restoreSql = StringUtils.replace(restoreSql, REPLACE_MARK, "error");
+                restoreSql += "\n---This is an error sql!---";
+            }
         } catch (Exception e) {
             return "restore mybatis sql error!";
         }
@@ -96,9 +107,15 @@ public class RestoreSqlUtil {
         return paramValue;
     }
 
+    /**
+     * 简单的格式化
+     * @param sql
+     * @return
+     */
     public static String simpleFormat(String sql) {
         if(StringUtils.isNotBlank(sql)) {
             return sql.replaceAll("(?i)\\s+from\\s+", "\n FROM ")
+                    .replaceAll("(?i)\\s+select\\s+", "\n SELECT ")
                     .replaceAll("(?i)\\s+where\\s+", "\n WHERE ")
                     .replaceAll("(?i)\\s+left join\\s+", "\n LEFT JOIN ")
                     .replaceAll("(?i)\\s+right join\\s+", "\n RIGHT JOIN ")

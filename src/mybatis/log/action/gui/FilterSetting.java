@@ -11,6 +11,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+/**
+ * filter setting
+ * @author ob
+ */
 public class FilterSetting extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;

@@ -7,6 +7,7 @@ import com.intellij.execution.filters.Filter;
 import com.intellij.openapi.project.Project;
 
 /**
+ * mybatis log provider
  * @author ob
  */
 public class MyBatisLogProvider implements ConsoleFilterProvider {

@@ -27,7 +27,7 @@
       选中console的sql日志，右击 "Restore Sql from Selection" 菜单可以还原sql语句。<br/>
       前提条件：输出的sql日志必须包含"Preparing:"和"Parameters:"才能正常解析。<br/>
       <br/>
-      <a href="https://plugins.jetbrains.com/plugin/9229">Plugin</a> | <a href="https://github.com/kookob/mybatis-log-plugin">Github</a> | <a href="https://github.com/kookob/mybatis-log-plugin/issues">Issues</a><br/>
+      <a href="https://github.com/kookob/mybatis-log-plugin">Github</a> | <a href="https://github.com/kookob/mybatis-log-plugin/issues">Issues</a><br/>
       <br/>
     ]]>
     </description>
@@ -36,7 +36,7 @@
         <![CDATA[
     <ul>
       <b>2.0.0</b>
-          <li>"Restore Sql for iBatis/MyBatis" has stop maintenance.</li>
+          <li>"Restore Sql for iBatis/MyBatis" plugin has stop maintenance.</li>
           <li>Use the new name: "MyBatis Log Plugin".</li>
           <li>Fix all parameter format issues.</li>
           <li>Fix multiple project output issue.</li>
