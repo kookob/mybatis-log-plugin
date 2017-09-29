@@ -16,7 +16,7 @@ import javax.swing.*;
 public class TailRunExecutor extends Executor {
 	public static final Icon ToolWindowRun = Icons.MyBatisIcon;
 
-	public static final String TOOLWINDOWS_ID = "MyBatis Log Plugin";
+	public static final String TOOLWINDOWS_ID = "MyBatis Sql Log";
 	@NonNls
 	public static final String EXECUTOR_ID = "MyBatisLogTail";
 

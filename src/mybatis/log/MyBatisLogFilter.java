@@ -25,7 +25,8 @@ public class MyBatisLogFilter implements Filter {
     @Nullable
     @Override
     public Result applyFilter(final String currentLine, int endPoint) {
-        if(MyBatisLogConfig.running) {
+        ConfigVo configVo = MyBatisLogConfig.getConfigVo(project);
+        if(configVo.getRunning()) {
             //过滤不显示的语句
             String[] filters = MyBatisLogConfig.properties.getValues(StringConst.FILTER_KEY);
             if (filters != null && filters.length > 0 && StringUtils.isNotBlank(currentLine)) {
@@ -36,14 +37,15 @@ public class MyBatisLogFilter implements Filter {
                 }
             }
             if(currentLine.contains(StringConst.PARAMETERS) && StringHelper.isNotEmpty(prevLine) && prevLine.contains(StringConst.PREPARING)) {
-                String preStr = MyBatisLogConfig.indexNum++ + "  " + currentLine.split(StringConst.PARAMETERS)[0].trim();
+                String preStr = configVo.getIndexNum() + "  " + currentLine.split(StringConst.PARAMETERS)[0].trim();
+                configVo.setIndexNum(configVo.getIndexNum() + 1);
                 String restoreSql = RestoreSqlUtil.restoreSql(prevLine, currentLine);
-                PrintUtil.println(preStr, ConsoleViewContentType.USER_INPUT);
-                if(MyBatisLogConfig.sqlFormat) {
+                PrintUtil.println(project, preStr, ConsoleViewContentType.USER_INPUT);
+                if(configVo.getSqlFormat()) {
                     restoreSql = PrintUtil.format(restoreSql);
                 }
-                PrintUtil.println(restoreSql);
-                PrintUtil.println(StringConst.SPLIT_LINE, ConsoleViewContentType.USER_INPUT);
+                PrintUtil.println(project, restoreSql);
+                PrintUtil.println(project, StringConst.SPLIT_LINE, ConsoleViewContentType.USER_INPUT);
             }
             prevLine = currentLine;
         }

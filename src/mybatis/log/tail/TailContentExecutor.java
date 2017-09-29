@@ -34,10 +34,10 @@ import com.intellij.openapi.util.Computable;
 import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.ui.content.Content;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import mybatis.log.Icons;
 import mybatis.log.MyBatisLogConfig;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -61,10 +61,12 @@ public class TailContentExecutor implements Disposable {
     private String myTitle = " ";//插件窗口标题
     private String myHelpId = null;
     private boolean myActivateToolWindow = true;
-    public static ConsoleView consoleView = null;
+    private ConsoleView consoleView = null;
 
     public TailContentExecutor(@NotNull Project project) {
         myProject = project;
+        consoleView = createConsole(project);
+        MyBatisLogConfig.consoleViewMap.put(project.getBasePath(), consoleView);
     }
 
     public TailContentExecutor withTitle(String title) {
@@ -102,8 +104,6 @@ public class TailContentExecutor implements Disposable {
 
     public void run() {
         FileDocumentManager.getInstance().saveAllDocuments();
-
-        consoleView = createConsole(myProject);
 
         if (myHelpId != null) {
             consoleView.setHelpId(myHelpId);
@@ -245,7 +245,7 @@ public class TailContentExecutor implements Disposable {
 
         @Override
         public boolean isSelected(AnActionEvent anActionEvent) {
-            return MyBatisLogConfig.sqlFormat;
+            return MyBatisLogConfig.getConfigVo(getEventProject(anActionEvent)).getSqlFormat();
         }
 
         @Override
@@ -261,8 +261,8 @@ public class TailContentExecutor implements Disposable {
 
         @Override
         public void actionPerformed(AnActionEvent e) {
-            MyBatisLogConfig.running = false;
-            MyBatisLogConfig.indexNum = 1;
+            MyBatisLogConfig.getConfigVo(getEventProject(e)).setRunning(false);
+            MyBatisLogConfig.getConfigVo(getEventProject(e)).setIndexNum(1);
             super.actionPerformed(e);
         }
     }

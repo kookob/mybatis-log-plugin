@@ -2,9 +2,10 @@ package mybatis.log.util;
 
 import com.intellij.execution.ui.ConsoleViewContentType;
 import com.intellij.openapi.editor.markup.TextAttributes;
+import com.intellij.openapi.project.Project;
+import mybatis.log.MyBatisLogConfig;
 import mybatis.log.hibernate.BasicFormatterImpl;
 import mybatis.log.hibernate.Formatter;
-import mybatis.log.tail.TailContentExecutor;
 import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.Nullable;
 
@@ -20,9 +21,9 @@ public class PrintUtil {
         return new ConsoleViewContentType("styleName", new TextAttributes(foregroundColor, backgroundColor, null, null, Font.PLAIN));
     }
 
-    public static void println(String line, ConsoleViewContentType consoleViewContentType) {
-        if (TailContentExecutor.consoleView != null) {
-            TailContentExecutor.consoleView.print(line + "\n", consoleViewContentType);
+    public static void println(Project project, String line, ConsoleViewContentType consoleViewContentType) {
+        if (MyBatisLogConfig.consoleViewMap.get(project.getBasePath()) != null) {
+            MyBatisLogConfig.consoleViewMap.get(project.getBasePath()).print(line + "\n", consoleViewContentType);
         }
     }
 
@@ -31,15 +32,15 @@ public class PrintUtil {
      *
      * @param line
      */
-    public static void println(String line) {
+    public static void println(Project project, String line) {
         if (StringUtils.isNotBlank(line)) {
             String lowerLine = line.toLowerCase().trim();
             if (lowerLine.startsWith("insert") || lowerLine.startsWith("update")) {
-                println(line, ConsoleViewContentType.SYSTEM_OUTPUT);
+                println(project, line, ConsoleViewContentType.SYSTEM_OUTPUT);
             } else if (lowerLine.startsWith("delete")) {
-                println(line, getOutputAttributes(Color.RED, null));
+                println(project, line, getOutputAttributes(Color.RED, null));
             } else {
-                println(line, ConsoleViewContentType.ERROR_OUTPUT);
+                println(project, line, ConsoleViewContentType.ERROR_OUTPUT);
             }
         }
     }

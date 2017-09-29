@@ -6,6 +6,7 @@ import com.intellij.openapi.project.DumbAwareAction;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Computable;
 import com.intellij.openapi.util.Disposer;
+import mybatis.log.ConfigVo;
 import mybatis.log.MyBatisLogConfig;
 import mybatis.log.tail.TailContentExecutor;
 import org.apache.commons.lang.StringUtils;
@@ -34,7 +35,8 @@ public class ShowLogInConsoleAction extends DumbAwareAction {
     }
 
     public void showLogInConsole(final Project project) {
-        MyBatisLogConfig.running = true;
+        ConfigVo configVo = MyBatisLogConfig.getConfigVo(project);
+        configVo.setRunning(true);
         final TailContentExecutor executor = new TailContentExecutor(project);
         Disposer.register(project, executor);
         executor.withRerun(new Runnable() {
@@ -46,19 +48,19 @@ public class ShowLogInConsoleAction extends DumbAwareAction {
         executor.withStop(new Runnable() {
             @Override
             public void run() {
-                MyBatisLogConfig.running = false;
-                MyBatisLogConfig.indexNum = 1;
+                configVo.setRunning(false);
+                configVo.setIndexNum(1);
             }
         }, new Computable<Boolean>() {
             @Override
             public Boolean compute() {
-                return MyBatisLogConfig.running;
+                return configVo.getRunning();
             }
         });
         executor.withFormat(new Runnable() {
             @Override
             public void run() {
-                MyBatisLogConfig.sqlFormat = !MyBatisLogConfig.sqlFormat;
+                configVo.setSqlFormat(!configVo.getSqlFormat());
             }
         });
         executor.withFilter(new Runnable() {
