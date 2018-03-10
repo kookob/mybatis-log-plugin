@@ -23,7 +23,7 @@ public class FilterSetting extends JDialog {
     private JLabel label;
 
     public FilterSetting() {
-        this.setTitle("Filter Settings"); //设置标题
+        this.setTitle("Filter Setting"); //设置标题
         //设置label值，采用html语法分行
         StringBuilder description = new StringBuilder("<html><body>")
                 .append("Filter the contents that contain below character, split every line.")
@@ -67,8 +67,10 @@ public class FilterSetting extends JDialog {
         if(textArea != null && StringUtils.isNotBlank(textArea.getText())) {
             String[] filters = textArea.getText().split("\n");
             MyBatisLogConfig.properties.setValues(StringConst.FILTER_KEY, filters);
-            this.setVisible(false);
+        } else {
+            MyBatisLogConfig.properties.setValues(StringConst.FILTER_KEY, null);
         }
+        this.setVisible(false);
     }
 
     private void onCancel() {

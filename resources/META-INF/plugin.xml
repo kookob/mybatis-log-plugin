@@ -1,7 +1,7 @@
 <idea-plugin version="2">
     <id>MyBatisLogPlugin</id>
     <name>MyBatis Log Plugin</name>
-    <version>2.0.0</version>
+    <version>2.0.2</version>
     <vendor email="kookob@gmail.com" url="">ob</vendor>
 
     <description>
@@ -35,6 +35,10 @@
     <change-notes>
         <![CDATA[
     <ul>
+      <b>2.0.2</b>
+          <li>Fix Filter Setting bug.</li>
+      <b>2.0.1</b>
+          <li>Fix multiple null split error.</li>
       <b>2.0.0</b>
           <li>"Restore Sql for iBatis/MyBatis" plugin has stop maintenance.</li>
           <li>Use the new name: "MyBatis Log Plugin".</li>
@@ -42,6 +46,10 @@
           <li>Fix multiple project output issue.</li>
       --------------------------------------------------------------
       <br/>
+      <b>2.0.2</b>
+          <li>修复过滤设置清空问题。</li>
+      <b>2.0.1</b>
+          <li>修复多个空值分割的问题。</li>
       <b>2.0.0</b>
           <li>"Restore Sql for iBatis/MyBatis" 插件停止维护。</li>
           <li>改用全新的名称: "MyBatis Log Plugin"。</li>
