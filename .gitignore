@@ -5,3 +5,4 @@
 .idea/workspace.xml
 /test
 mybatis.log
+*.jar
