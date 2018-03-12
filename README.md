@@ -69,7 +69,7 @@ And it will output the whole sql:<br/>
 
 **插件下载**
 ---
-[mybatis-log-plugin.jar](https://github.com/kookob/mybatis-log-plugin/blob/master/mybatis-log-plugin.jar?raw=true "插件下载")
+[mybatis-log-plugin.jar](https://plugins.jetbrains.com/plugin/10065-mybatis-log-plugin "插件下载")
 
 **项目地址**
 ---

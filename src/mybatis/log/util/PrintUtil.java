@@ -3,6 +3,7 @@ package mybatis.log.util;
 import com.intellij.execution.ui.ConsoleViewContentType;
 import com.intellij.openapi.editor.markup.TextAttributes;
 import com.intellij.openapi.project.Project;
+import com.intellij.util.ui.UIUtil;
 import mybatis.log.MyBatisLogConfig;
 import mybatis.log.hibernate.BasicFormatterImpl;
 import mybatis.log.hibernate.Formatter;
@@ -18,6 +19,11 @@ import java.awt.*;
 public class PrintUtil {
     public static ConsoleViewContentType getOutputAttributes(@Nullable Color foregroundColor, @Nullable Color backgroundColor) {
         //@Nullable Color foregroundColor, @Nullable Color backgroundColor, @Nullable Color effectColor, EffectType effectType, @FontStyle int fontType
+        //针对Darcula主题，背景颜色调整
+        if(UIUtil.isUnderDarcula() && backgroundColor != null) {
+            backgroundColor = null;
+            foregroundColor = Color.YELLOW;
+        }
         return new ConsoleViewContentType("styleName", new TextAttributes(foregroundColor, backgroundColor, null, null, Font.PLAIN));
     }
 
