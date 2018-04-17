@@ -82,6 +82,3 @@ Reference and copy some code from below list:<br/>
 <https://github.com/krasa/GrepConsole><br/>
 <https://github.com/hibernate/hibernate-orm><br/>
 
-**版本要求**
----
-**(This plugin requires your IDE to run on Java 7 or higher.)**
