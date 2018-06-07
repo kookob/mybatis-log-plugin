@@ -39,7 +39,7 @@ public class TailRunExecutor extends Executor {
 	@Override
 	@NotNull
 	public Icon getIcon() {
-		return AllIcons.Actions.Execute;
+		return ToolWindowRun;
 	}
 
 	@Override
