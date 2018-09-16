@@ -1,7 +1,7 @@
 <idea-plugin version="2">
     <id>MyBatisLogPlugin</id>
     <name>MyBatis Log Plugin</name>
-    <version>2.0.4</version>
+    <version>2.0.5</version>
     <vendor email="kookob@gmail.com" url="">ob</vendor>
 
     <description>
@@ -36,6 +36,8 @@
         <![CDATA[
     <ul>
       <b>2.0.4</b>
+          <li>Fix intellij 2018 get project error bug.</li>
+      <b>2.0.4</b>
           <li>Fix sql log contain newline bug.</li>
       <b>2.0.3</b>
           <li>Adapt the darcula theme.</li>
@@ -50,6 +52,8 @@
           <li>Fix multiple project output issue.</li>
       --------------------------------------------------------------
       <br/>
+      <b>2.0.5</b>
+          <li>修复intellij 2018下报错的问题。</li>
       <b>2.0.4</b>
           <li>修复sql包含换行符的输出。</li>
       <b>2.0.3</b>

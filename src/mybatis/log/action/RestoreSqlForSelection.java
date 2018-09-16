@@ -62,7 +62,14 @@ public class RestoreSqlForSelection extends AnAction {
                     if(StringHelper.isEmpty(preparingLine)) {
                         continue;
                     }
-                    parametersLine = currentLine.contains(StringConst.PARAMETERS) ? currentLine : parametersLine + currentLine;
+                    if(currentLine.contains(StringConst.PARAMETERS)) {
+                        parametersLine = currentLine;
+                    } else {
+                        if(StringUtils.isBlank(parametersLine)) {
+                            continue;
+                        }
+                        parametersLine += currentLine;
+                    }
                     if(!parametersLine.endsWith("Parameters: \n") && !parametersLine.endsWith("null\n") && !parametersLine.endsWith(")\n")) {
                         continue;
                     } else {

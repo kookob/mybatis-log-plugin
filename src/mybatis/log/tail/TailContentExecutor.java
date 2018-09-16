@@ -100,7 +100,7 @@ public class TailContentExecutor implements Disposable {
         consoleBuilder.filters(myFilterList);
         ConsoleView console = consoleBuilder.getConsole();
         return console;
-    }
+}
 
     public void run() {
         FileDocumentManager.getInstance().saveAllDocuments();
@@ -216,6 +216,7 @@ public class TailContentExecutor implements Disposable {
 
         @Override
         public void update(AnActionEvent e) {
+            if(getEventProject(e) == null) return;
             e.getPresentation().setVisible(myRerunAction != null);
             e.getPresentation().setIcon(AllIcons.Actions.Restart);
         }
@@ -233,6 +234,7 @@ public class TailContentExecutor implements Disposable {
 
         @Override
         public void update(AnActionEvent e) {
+            if(getEventProject(e) == null) return;
             e.getPresentation().setVisible(myStopAction != null);
             e.getPresentation().setEnabled(myStopEnabled != null && myStopEnabled.compute());
         }
@@ -245,7 +247,8 @@ public class TailContentExecutor implements Disposable {
 
         @Override
         public boolean isSelected(AnActionEvent anActionEvent) {
-            return MyBatisLogConfig.getConfigVo(getEventProject(anActionEvent)).getSqlFormat();
+            if(getEventProject(anActionEvent) == null) return false;
+            return MyBatisLogConfig.getConfigVo(anActionEvent.getProject()).getSqlFormat();
         }
 
         @Override
@@ -261,6 +264,7 @@ public class TailContentExecutor implements Disposable {
 
         @Override
         public void actionPerformed(AnActionEvent e) {
+            if(getEventProject(e) == null) return;
             MyBatisLogConfig.getConfigVo(getEventProject(e)).setRunning(false);
             MyBatisLogConfig.getConfigVo(getEventProject(e)).setIndexNum(1);
             super.actionPerformed(e);
