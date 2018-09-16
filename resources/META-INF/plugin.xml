@@ -17,6 +17,7 @@
       You can selected the "Format Sql" button on the left to format the generate sql statements.<br/>
       You can select the console sql log and right click "Restore Sql from Selection" menu to restore sql.<br/>
       Prerequisite: sql log must contain "Preparing:" and "Parameters:" <br/>
+      <b>If you find this plugin useful, please share it with more friends, thank you!</b><br/>
       -----------------------------------------------------------------------------------------------------------------------
       <br/>
       把 mybatis 输出的sql日志还原成完整的sql语句。<br/>
@@ -26,17 +27,19 @@
       点击窗口左边的 "Format Sql" 按钮，可以格式化输出的sql语句。<br/>
       选中console的sql日志，右击 "Restore Sql from Selection" 菜单可以还原sql语句。<br/>
       前提条件：输出的sql日志必须包含"Preparing:"和"Parameters:"才能正常解析。<br/>
+      <b>如果您觉得这个插件有用，请分享给更多的朋友，谢谢！</b><br/>
       <br/>
-      <a href="https://github.com/kookob/mybatis-log-plugin">Github</a> | <a href="https://github.com/kookob/mybatis-log-plugin/issues">Issues</a><br/>
+      <a href="https://github.com/kookob/mybatis-log-plugin">Github & Star</a> | <a href="https://github.com/kookob/mybatis-log-plugin/issues">Issues</a><br/>
       <br/>
+      <img src="https://plugins.jetbrains.com/files/10065/screenshot_17367.png" />
     ]]>
     </description>
 
     <change-notes>
         <![CDATA[
     <ul>
-      <b>2.0.4</b>
-          <li>Fix intellij 2018 get project error bug.</li>
+      <b>2.0.5</b>
+          <li>Fix IntelliJ 2018 get project error bug.</li>
       <b>2.0.4</b>
           <li>Fix sql log contain newline bug.</li>
       <b>2.0.3</b>
@@ -53,7 +56,7 @@
       --------------------------------------------------------------
       <br/>
       <b>2.0.5</b>
-          <li>修复intellij 2018下报错的问题。</li>
+          <li>修复IntelliJ 2018下报错的问题。</li>
       <b>2.0.4</b>
           <li>修复sql包含换行符的输出。</li>
       <b>2.0.3</b>
