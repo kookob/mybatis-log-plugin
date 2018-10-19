@@ -6,12 +6,11 @@ import com.intellij.openapi.project.DumbAwareAction;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Computable;
 import com.intellij.openapi.util.Disposer;
-import mybatis.log.ConfigVo;
-import mybatis.log.MyBatisLogConfig;
-import mybatis.log.tail.TailContentExecutor;
-import org.apache.commons.lang.StringUtils;
 import mybatis.log.action.gui.FilterSetting;
+import mybatis.log.tail.TailContentExecutor;
+import mybatis.log.util.ConfigUtil;
 import mybatis.log.util.StringConst;
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -20,23 +19,23 @@ import mybatis.log.util.StringConst;
  */
 public class ShowLogInConsoleAction extends DumbAwareAction {
 
-    public ShowLogInConsoleAction() {
-    }
-
     public ShowLogInConsoleAction(Project project) {
         super();
-        MyBatisLogConfig.properties = PropertiesComponent.getInstance(project);
-        MyBatisLogConfig.settingDialog = new FilterSetting();
+        ConfigUtil.properties = PropertiesComponent.getInstance(project);
+        ConfigUtil.settingDialog = new FilterSetting();
+        ConfigUtil.init(project);
     }
 
     @Override
     public void actionPerformed(AnActionEvent e) {
         final Project project = e.getProject();
+        if (project == null) return;
     }
 
     public void showLogInConsole(final Project project) {
-        ConfigVo configVo = MyBatisLogConfig.getConfigVo(project);
-        configVo.setRunning(true);
+        if (project == null) return;
+        final String projectBasePath = project.getBasePath();
+        ConfigUtil.runningMap.put(projectBasePath, true);
         final TailContentExecutor executor = new TailContentExecutor(project);
         Disposer.register(project, executor);
         executor.withRerun(new Runnable() {
@@ -48,30 +47,30 @@ public class ShowLogInConsoleAction extends DumbAwareAction {
         executor.withStop(new Runnable() {
             @Override
             public void run() {
-                configVo.setRunning(false);
-                configVo.setIndexNum(1);
+                ConfigUtil.runningMap.put(projectBasePath, false);
+                ConfigUtil.indexNumMap.put(projectBasePath, 1);
             }
         }, new Computable<Boolean>() {
             @Override
             public Boolean compute() {
-                return configVo.getRunning();
+                return ConfigUtil.runningMap.get(projectBasePath);
             }
         });
         executor.withFormat(new Runnable() {
             @Override
             public void run() {
-                configVo.setSqlFormat(!configVo.getSqlFormat());
+                ConfigUtil.sqlFormatMap.put(projectBasePath, !ConfigUtil.sqlFormatMap.get(projectBasePath));
             }
         });
         executor.withFilter(new Runnable() {
             @Override
             public void run() {
                 //启动filter配置
-                FilterSetting dialog = MyBatisLogConfig.settingDialog;
+                FilterSetting dialog = ConfigUtil.settingDialog;
                 dialog.pack();
-                dialog.setSize(500, 300);//配置大小
+                dialog.setSize(600, 320);//配置大小
                 dialog.setLocationRelativeTo(null);//位置居中显示
-                String[] filters = MyBatisLogConfig.properties.getValues(StringConst.FILTER_KEY);//读取过滤字符
+                String[] filters = ConfigUtil.properties.getValues(StringConst.FILTER_KEY);//读取过滤字符
                 if (filters != null && filters.length > 0) {
                     dialog.getTextArea().setText(StringUtils.join(filters, "\n"));
                 }

@@ -1,8 +1,8 @@
 package mybatis.log.action.gui;
 
-import mybatis.log.MyBatisLogConfig;
-import org.apache.commons.lang.StringUtils;
+import mybatis.log.util.ConfigUtil;
 import mybatis.log.util.StringConst;
+import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -66,9 +66,9 @@ public class FilterSetting extends JDialog {
         //保存配置字符
         if(textArea != null && StringUtils.isNotBlank(textArea.getText())) {
             String[] filters = textArea.getText().split("\n");
-            MyBatisLogConfig.properties.setValues(StringConst.FILTER_KEY, filters);
+            ConfigUtil.properties.setValues(StringConst.FILTER_KEY, filters);
         } else {
-            MyBatisLogConfig.properties.setValues(StringConst.FILTER_KEY, null);
+            ConfigUtil.properties.setValues(StringConst.FILTER_KEY, null);
         }
         this.setVisible(false);
     }
@@ -89,7 +89,7 @@ public class FilterSetting extends JDialog {
     public static void main(String[] args) {
         FilterSetting dialog = new FilterSetting();
         dialog.pack();
-        dialog.setSize(400, 300);
+        dialog.setSize(500, 300);
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
         System.exit(0);

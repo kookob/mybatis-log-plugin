@@ -4,6 +4,7 @@ import com.intellij.execution.filters.Filter;
 import com.intellij.execution.ui.ConsoleViewContentType;
 import com.intellij.openapi.project.Project;
 import mybatis.log.hibernate.StringHelper;
+import mybatis.log.util.ConfigUtil;
 import mybatis.log.util.PrintUtil;
 import mybatis.log.util.RestoreSqlUtil;
 import mybatis.log.util.StringConst;
@@ -27,10 +28,11 @@ public class MyBatisLogFilter implements Filter {
     @Nullable
     @Override
     public Result applyFilter(final String currentLine, int endPoint) {
-        ConfigVo configVo = MyBatisLogConfig.getConfigVo(project);
-        if(configVo.getRunning()) {
+        if(this.project == null) return null;
+        final String projectBasePath = project.getBasePath();
+        if(ConfigUtil.runningMap.get(projectBasePath)) {
             //过滤不显示的语句
-            String[] filters = MyBatisLogConfig.properties.getValues(StringConst.FILTER_KEY);
+            String[] filters = ConfigUtil.properties.getValues(StringConst.FILTER_KEY);
             if (filters != null && filters.length > 0 && StringUtils.isNotBlank(currentLine)) {
                 for (String filter : filters) {
                     if(StringUtils.isNotBlank(filter) && currentLine.toLowerCase().contains(filter.trim().toLowerCase())) {
@@ -52,11 +54,12 @@ public class MyBatisLogFilter implements Filter {
                 isEnd = true;
             }
             if(StringHelper.isNotEmpty(preparingLine) && StringHelper.isNotEmpty(parametersLine) && isEnd) {
-                String preStr = configVo.getIndexNum() + "  " + parametersLine.split(StringConst.PARAMETERS)[0].trim();//序号前缀字符串
-                configVo.setIndexNum(configVo.getIndexNum() + 1);
+                int indexNum = ConfigUtil.indexNumMap.get(projectBasePath);
+                String preStr = indexNum + "  " + parametersLine.split(StringConst.PARAMETERS)[0].trim();//序号前缀字符串
+                ConfigUtil.indexNumMap.put(projectBasePath, ++indexNum);
                 String restoreSql = RestoreSqlUtil.restoreSql(preparingLine, parametersLine);
                 PrintUtil.println(project, preStr, ConsoleViewContentType.USER_INPUT);
-                if(configVo.getSqlFormat()) {
+                if(ConfigUtil.sqlFormatMap.get(projectBasePath)) {
                     restoreSql = PrintUtil.format(restoreSql);
                 }
                 PrintUtil.println(project, restoreSql);

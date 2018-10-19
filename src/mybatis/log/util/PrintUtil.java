@@ -1,10 +1,10 @@
 package mybatis.log.util;
 
+import com.intellij.execution.ui.ConsoleView;
 import com.intellij.execution.ui.ConsoleViewContentType;
 import com.intellij.openapi.editor.markup.TextAttributes;
 import com.intellij.openapi.project.Project;
 import com.intellij.util.ui.UIUtil;
-import mybatis.log.MyBatisLogConfig;
 import mybatis.log.hibernate.BasicFormatterImpl;
 import mybatis.log.hibernate.Formatter;
 import org.apache.commons.lang.StringUtils;
@@ -28,8 +28,9 @@ public class PrintUtil {
     }
 
     public static void println(Project project, String line, ConsoleViewContentType consoleViewContentType) {
-        if (MyBatisLogConfig.consoleViewMap.get(project.getBasePath()) != null) {
-            MyBatisLogConfig.consoleViewMap.get(project.getBasePath()).print(line + "\n", consoleViewContentType);
+        ConsoleView consoleView = ConfigUtil.consoleViewMap.get(project.getBasePath());
+        if (consoleView != null) {
+            consoleView.print(line + "\n", consoleViewContentType);
         }
     }
 

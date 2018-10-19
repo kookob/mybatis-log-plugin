@@ -35,7 +35,7 @@ import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.ui.content.Content;
 import mybatis.log.Icons;
-import mybatis.log.MyBatisLogConfig;
+import mybatis.log.util.ConfigUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -66,7 +66,7 @@ public class TailContentExecutor implements Disposable {
     public TailContentExecutor(@NotNull Project project) {
         myProject = project;
         consoleView = createConsole(project);
-        MyBatisLogConfig.consoleViewMap.put(project.getBasePath(), consoleView);
+        ConfigUtil.consoleViewMap.put(project.getBasePath(), consoleView);
     }
 
     public TailContentExecutor withTitle(String title) {
@@ -100,7 +100,7 @@ public class TailContentExecutor implements Disposable {
         consoleBuilder.filters(myFilterList);
         ConsoleView console = consoleBuilder.getConsole();
         return console;
-}
+    }
 
     public void run() {
         FileDocumentManager.getInstance().saveAllDocuments();
@@ -216,7 +216,6 @@ public class TailContentExecutor implements Disposable {
 
         @Override
         public void update(AnActionEvent e) {
-            if(getEventProject(e) == null) return;
             e.getPresentation().setVisible(myRerunAction != null);
             e.getPresentation().setIcon(AllIcons.Actions.Restart);
         }
@@ -234,7 +233,6 @@ public class TailContentExecutor implements Disposable {
 
         @Override
         public void update(AnActionEvent e) {
-            if(getEventProject(e) == null) return;
             e.getPresentation().setVisible(myStopAction != null);
             e.getPresentation().setEnabled(myStopEnabled != null && myStopEnabled.compute());
         }
@@ -246,9 +244,8 @@ public class TailContentExecutor implements Disposable {
         }
 
         @Override
-        public boolean isSelected(AnActionEvent anActionEvent) {
-            if(getEventProject(anActionEvent) == null) return false;
-            return MyBatisLogConfig.getConfigVo(anActionEvent.getProject()).getSqlFormat();
+        public boolean isSelected(AnActionEvent e) {
+            return e.getProject() == null ? false : ConfigUtil.sqlFormatMap.get(e.getProject().getBasePath());
         }
 
         @Override
@@ -264,9 +261,10 @@ public class TailContentExecutor implements Disposable {
 
         @Override
         public void actionPerformed(AnActionEvent e) {
-            if(getEventProject(e) == null) return;
-            MyBatisLogConfig.getConfigVo(getEventProject(e)).setRunning(false);
-            MyBatisLogConfig.getConfigVo(getEventProject(e)).setIndexNum(1);
+            final Project project = e.getProject();
+            if (project == null) return;
+            ConfigUtil.runningMap.put(project.getBasePath(), false);
+            ConfigUtil.indexNumMap.put(project.getBasePath(), 1);
             super.actionPerformed(e);
         }
     }

@@ -11,7 +11,8 @@ import com.intellij.openapi.project.Project;
 public class TailMyBatisLog extends DumbAwareAction {
 	@Override
 	public void actionPerformed(AnActionEvent e) {
-		Project project = getEventProject(e);
+		final Project project = e.getProject();
+		if (project == null) return;
 		new ShowLogInConsoleAction(project).showLogInConsole(project);
 	}
 }
