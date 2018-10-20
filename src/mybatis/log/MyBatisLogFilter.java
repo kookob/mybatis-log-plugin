@@ -30,7 +30,7 @@ public class MyBatisLogFilter implements Filter {
     public Result applyFilter(final String currentLine, int endPoint) {
         if(this.project == null) return null;
         final String projectBasePath = project.getBasePath();
-        if(ConfigUtil.runningMap.get(projectBasePath)) {
+        if(ConfigUtil.runningMap.containsKey(projectBasePath) && ConfigUtil.runningMap.get(projectBasePath)) {
             //过滤不显示的语句
             String[] filters = ConfigUtil.properties.getValues(StringConst.FILTER_KEY);
             if (filters != null && filters.length > 0 && StringUtils.isNotBlank(currentLine)) {

@@ -142,12 +142,7 @@ public class TailContentExecutor implements Disposable {
         Disposer.register(this, descriptor);
         Disposer.register(content, consoleView);
         if (myStopAction != null) {
-            Disposer.register(consoleView, new Disposable() {
-                @Override
-                public void dispose() {
-                    myStopAction.run();
-                }
-            });
+            Disposer.register(consoleView, () -> myStopAction.run());
         }
 
         for (AnAction action : consoleView.createConsoleActions()) {
@@ -173,12 +168,7 @@ public class TailContentExecutor implements Disposable {
     }
 
     public void activateToolWindow() {
-        ApplicationManager.getApplication().invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                ToolWindowManager.getInstance(myProject).getToolWindow(TailRunExecutor.TOOLWINDOWS_ID).activate(null);
-            }
-        });
+        ApplicationManager.getApplication().invokeLater(() -> ToolWindowManager.getInstance(myProject).getToolWindow(TailRunExecutor.TOOLWINDOWS_ID).activate(null));
     }
 
     private static JComponent createConsolePanel(ConsoleView view, ActionGroup actions) {

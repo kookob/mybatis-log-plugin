@@ -4,7 +4,6 @@ import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.project.DumbAwareAction;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.Computable;
 import com.intellij.openapi.util.Disposer;
 import mybatis.log.action.gui.FilterSetting;
 import mybatis.log.tail.TailContentExecutor;
@@ -15,6 +14,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * 插件入口
+ *
  * @author ob
  */
 public class ShowLogInConsoleAction extends DumbAwareAction {
@@ -38,44 +38,23 @@ public class ShowLogInConsoleAction extends DumbAwareAction {
         ConfigUtil.runningMap.put(projectBasePath, true);
         final TailContentExecutor executor = new TailContentExecutor(project);
         Disposer.register(project, executor);
-        executor.withRerun(new Runnable() {
-            @Override
-            public void run() {
-                showLogInConsole(project);
+        executor.withRerun(() -> showLogInConsole(project));
+        executor.withStop(() -> {
+            ConfigUtil.runningMap.put(projectBasePath, false);
+            ConfigUtil.indexNumMap.put(projectBasePath, 1);
+        }, () -> ConfigUtil.runningMap.get(projectBasePath));
+        executor.withFormat(() -> ConfigUtil.sqlFormatMap.put(projectBasePath, !ConfigUtil.sqlFormatMap.get(projectBasePath)));
+        executor.withFilter(() -> {
+            //启动filter配置
+            FilterSetting dialog = ConfigUtil.settingDialog;
+            dialog.pack();
+            dialog.setSize(600, 320);//配置大小
+            dialog.setLocationRelativeTo(null);//位置居中显示
+            String[] filters = ConfigUtil.properties.getValues(StringConst.FILTER_KEY);//读取过滤字符
+            if (filters != null && filters.length > 0) {
+                dialog.getTextArea().setText(StringUtils.join(filters, "\n"));
             }
-        });
-        executor.withStop(new Runnable() {
-            @Override
-            public void run() {
-                ConfigUtil.runningMap.put(projectBasePath, false);
-                ConfigUtil.indexNumMap.put(projectBasePath, 1);
-            }
-        }, new Computable<Boolean>() {
-            @Override
-            public Boolean compute() {
-                return ConfigUtil.runningMap.get(projectBasePath);
-            }
-        });
-        executor.withFormat(new Runnable() {
-            @Override
-            public void run() {
-                ConfigUtil.sqlFormatMap.put(projectBasePath, !ConfigUtil.sqlFormatMap.get(projectBasePath));
-            }
-        });
-        executor.withFilter(new Runnable() {
-            @Override
-            public void run() {
-                //启动filter配置
-                FilterSetting dialog = ConfigUtil.settingDialog;
-                dialog.pack();
-                dialog.setSize(600, 320);//配置大小
-                dialog.setLocationRelativeTo(null);//位置居中显示
-                String[] filters = ConfigUtil.properties.getValues(StringConst.FILTER_KEY);//读取过滤字符
-                if (filters != null && filters.length > 0) {
-                    dialog.getTextArea().setText(StringUtils.join(filters, "\n"));
-                }
-                dialog.setVisible(true);
-            }
+            dialog.setVisible(true);
         });
         executor.run();
     }
