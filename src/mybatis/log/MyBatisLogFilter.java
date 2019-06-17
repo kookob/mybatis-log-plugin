@@ -40,7 +40,7 @@ public class MyBatisLogFilter implements Filter {
                     }
                 }
             }
-            if(currentLine.contains(StringConst.PREPARING)) {
+            if(currentLine.contains(StringConst.PREPARING) || currentLine.contains(StringConst.EXECUTING)) {
                 preparingLine = currentLine;
                 return null;
             }

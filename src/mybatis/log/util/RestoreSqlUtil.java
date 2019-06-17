@@ -49,6 +49,8 @@ public class RestoreSqlUtil {
         try {
             if(preparing.contains(StringConst.PREPARING)) {
                 preparingSql = preparing.split(StringConst.PREPARING)[1].trim();
+            } else if(preparing.contains(StringConst.EXECUTING)) {
+                preparingSql = preparing.split(StringConst.EXECUTING)[1].trim();
             } else {
                 preparingSql = preparing;
             }

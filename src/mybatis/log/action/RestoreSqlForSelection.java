@@ -45,7 +45,7 @@ public class RestoreSqlForSelection extends AnAction {
         }
         //激活Restore Sql tab
         ToolWindowManager.getInstance(project).getToolWindow(TailRunExecutor.TOOLWINDOWS_ID).activate(null);
-        if(StringUtils.isNotBlank(sqlText) && sqlText.contains(StringConst.PARAMETERS) && sqlText.contains(StringConst.PREPARING)) {
+        if(StringUtils.isNotBlank(sqlText) && sqlText.contains(StringConst.PARAMETERS) && (sqlText.contains(StringConst.PREPARING) || sqlText.contains(StringConst.EXECUTING))) {
             String[] sqlArr = sqlText.split("\n");
             if(sqlArr != null && sqlArr.length >= 2) {
                 for(int i=0; i<sqlArr.length; ++i) {
@@ -53,7 +53,7 @@ public class RestoreSqlForSelection extends AnAction {
                     if(StringUtils.isBlank(currentLine)) {
                         continue;
                     }
-                    if(currentLine.contains(StringConst.PREPARING)) {
+                    if(currentLine.contains(StringConst.PREPARING) || currentLine.contains(StringConst.EXECUTING)) {
                         preparingLine = currentLine;
                         continue;
                     } else {
