@@ -18,22 +18,13 @@ public class FilterSetting extends JDialog {
     private JButton buttonOK;
     private JButton buttonCancel;
     private JTextArea textArea;
-    private JLabel label;
 
     public FilterSetting() {
         this.setTitle("Filter Setting"); //设置标题
-        //设置label值，采用html语法分行
-        StringBuilder description = new StringBuilder("<html><body>")
-                .append("Filter the contents that contain below character, split every line.")
-                .append("</body></html>");
-        this.label.setText(description.toString());
-
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
-
         buttonOK.addActionListener(e -> onOK());
-
         buttonCancel.addActionListener(e -> onCancel());
 
         // call onCancel() when cross is clicked
@@ -75,7 +66,7 @@ public class FilterSetting extends JDialog {
     public static void main(String[] args) {
         FilterSetting dialog = new FilterSetting();
         dialog.pack();
-        dialog.setSize(500, 300);
+        dialog.setSize(600, 320);
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
         System.exit(0);

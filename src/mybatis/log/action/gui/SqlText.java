@@ -6,6 +6,9 @@ import mybatis.log.util.StringConst;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -22,16 +25,19 @@ public class SqlText extends JFrame {
 
     private JPanel panel1;
     private JButton buttonOK;
+    private JButton buttonCopy;
     private JButton buttonClose;
     private JTextArea originalTextArea;
     private JTextArea resultTextArea;
+    private JButton buttonClear;
 
     public SqlText() {
         this.setTitle("restore sql from text"); //设置标题
         setContentPane(panel1);
         getRootPane().setDefaultButton(buttonOK);
-
         buttonOK.addActionListener(e -> onOK());
+        buttonCopy.addActionListener(e -> onCopy());
+        buttonClear.addActionListener(e -> onClear());
         buttonClose.addActionListener(e -> onClose());
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
@@ -99,6 +105,17 @@ public class SqlText extends JFrame {
         }
     }
 
+    private void onCopy() {
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        StringSelection selection = new StringSelection(this.resultTextArea.getText());
+        clipboard.setContents(selection, null);
+    }
+
+    private void onClear() {
+        this.resultTextArea.setText("");
+        this.originalTextArea.setText("");
+    }
+
     private void onClose() {
         this.setVisible(false);
     }
@@ -106,9 +123,9 @@ public class SqlText extends JFrame {
     public static void main(String[] args) {
         SqlText dialog = new SqlText();
         dialog.pack();
-        dialog.setSize(600, 320);
+        dialog.setSize(800, 600);
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
-        System.exit(0);
+//        System.exit(0);
     }
 }

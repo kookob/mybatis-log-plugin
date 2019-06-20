@@ -50,7 +50,7 @@ public class ShowLogInConsoleAction extends DumbAwareAction {
             //启动filter配置
             FilterSetting dialog = ConfigUtil.settingDialog;
             dialog.pack();
-            dialog.setSize(600, 320);//配置大小
+            dialog.setSize(600, 400);//配置大小
             dialog.setLocationRelativeTo(null);//位置居中显示
             String[] filters = ConfigUtil.properties.getValues(StringConst.FILTER_KEY);//读取过滤字符
             if (filters != null && filters.length > 0) {
