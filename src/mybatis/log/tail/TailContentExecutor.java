@@ -53,6 +53,7 @@ import java.util.List;
 public class TailContentExecutor implements Disposable {
     private final Project myProject;
     private final List<Filter> myFilterList = new ArrayList<>();
+    private Runnable myTextAction;
     private Runnable myFilterAction;
     private Runnable myRerunAction;
     private Runnable myStopAction;
@@ -76,6 +77,11 @@ public class TailContentExecutor implements Disposable {
 
     public TailContentExecutor withFilter(Runnable filter) {
         myFilterAction = filter;
+        return this;
+    }
+
+    public TailContentExecutor withText(Runnable text) {
+        myTextAction = text;
         return this;
     }
 
@@ -159,10 +165,11 @@ public class TailContentExecutor implements Disposable {
     @NotNull
     private ActionGroup createActionToolbar(JComponent consolePanel, ConsoleView consoleView, @NotNull final RunnerLayoutUi myUi, RunContentDescriptor contentDescriptor, Executor runExecutorInstance) {
         final DefaultActionGroup actionGroup = new DefaultActionGroup();
+        actionGroup.add(new TextAction());
         actionGroup.add(new FilterAction());
+        actionGroup.add(new FormatAction());
         actionGroup.add(new RerunAction(consolePanel, consoleView));
         actionGroup.add(new StopAction());
-        actionGroup.add(new FormatAction());
         actionGroup.add(new MyCloseAction(runExecutorInstance, contentDescriptor, myProject));
         return actionGroup;
     }
@@ -267,6 +274,17 @@ public class TailContentExecutor implements Disposable {
         @Override
         public void actionPerformed(AnActionEvent e) {
             myFilterAction.run();
+        }
+    }
+
+    private class TextAction extends AnAction implements DumbAware {
+        public TextAction() {
+            super("Sql Text", "Sql Text", Icons.TextIcon);
+        }
+
+        @Override
+        public void actionPerformed(AnActionEvent e) {
+            myTextAction.run();
         }
     }
 }

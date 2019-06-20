@@ -4,6 +4,7 @@ import com.intellij.execution.ui.ConsoleView;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.project.Project;
 import mybatis.log.action.gui.FilterSetting;
+import mybatis.log.action.gui.SqlText;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +17,7 @@ import java.util.Map;
 public class ConfigUtil {
     public static PropertiesComponent properties;//filter setting
     public static FilterSetting settingDialog;
+    public static SqlText sqlTextDialog;
     public static Map<String, ConsoleView> consoleViewMap = new HashMap<>();
     public static Map<String, Boolean> runningMap = new HashMap<>();
     public static Map<String, Boolean> sqlFormatMap = new HashMap<>();

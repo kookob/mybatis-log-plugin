@@ -6,6 +6,7 @@ import com.intellij.openapi.project.DumbAwareAction;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Disposer;
 import mybatis.log.action.gui.FilterSetting;
+import mybatis.log.action.gui.SqlText;
 import mybatis.log.tail.TailContentExecutor;
 import mybatis.log.util.ConfigUtil;
 import mybatis.log.util.StringConst;
@@ -23,6 +24,7 @@ public class ShowLogInConsoleAction extends DumbAwareAction {
         super();
         ConfigUtil.properties = PropertiesComponent.getInstance(project);
         ConfigUtil.settingDialog = new FilterSetting();
+        ConfigUtil.sqlTextDialog = new SqlText();
         ConfigUtil.init(project);
     }
 
@@ -55,6 +57,13 @@ public class ShowLogInConsoleAction extends DumbAwareAction {
                 dialog.getTextArea().setText(StringUtils.join(filters, "\n"));
             }
             dialog.setVisible(true);
+        });
+        executor.withText(() -> {
+            SqlText sqlText = ConfigUtil.sqlTextDialog;
+            sqlText.pack();
+            sqlText.setSize(1000, 600);//配置大小
+            sqlText.setLocationRelativeTo(null);//位置居中显示
+            sqlText.setVisible(true);
         });
         executor.run();
     }
