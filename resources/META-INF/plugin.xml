@@ -29,6 +29,10 @@
       <br/>
       <a href="https://github.com/kookob/mybatis-log-plugin">Github & Star</a> | <a href="https://github.com/kookob/mybatis-log-plugin/issues">Issues</a><br/>
       <br/>
+      Donations are welcomed: <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=2FQY2FH24H4LC&item_name=MyBatis+Log+Plugin&currency_code=USD&source=url">PayPal</a>
+      | <a href="https://raw.githubusercontent.com/kookob/mybatis-log-plugin/01b528df60df5cc990b87803e6c0c6ffae19f34c/src/mybatis/log/icon/alipay.png">支付宝</a>
+      | <a href="https://raw.githubusercontent.com/kookob/mybatis-log-plugin/01b528df60df5cc990b87803e6c0c6ffae19f34c/src/mybatis/log/icon/wechat.png">微信</a><br/>
+      <br/>
       <img src="https://plugins.jetbrains.com/files/10065/screenshot_17367.png" />
     ]]>
     </description>
@@ -36,6 +40,12 @@
     <change-notes>
         <![CDATA[
     <ul>
+      <b>2.0.8</b>
+          <li>Support mybatis old version(3.0).</li>
+          <li>Add restore sql from text.</li>
+          <li>Optimizes several details.</li>
+      <b>2.0.7</b>
+          <li>Fix some bug.</li>
       <b>2.0.6</b>
           <li>Fix some bug.</li>
       <b>2.0.5</b>
@@ -55,6 +65,12 @@
           <li>Fix multiple project output issue.</li>
       --------------------------------------------------------------
       <br/>
+      <b>2.0.8</b>
+          <li>支持MyBatis旧版本输出格式。</li>
+          <li>新增文本框还原语句窗口。</li>
+          <li>优化一些细节。</li>
+      <b>2.0.7</b>
+          <li>修复一些问题。</li>
       <b>2.0.6</b>
           <li>修复问题，优化代码。</li>
       <b>2.0.5</b>

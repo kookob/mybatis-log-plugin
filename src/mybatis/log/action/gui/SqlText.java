@@ -1,6 +1,7 @@
 package mybatis.log.action.gui;
 
 import mybatis.log.hibernate.StringHelper;
+import mybatis.log.util.BareBonesBrowserLaunch;
 import mybatis.log.util.RestoreSqlUtil;
 import mybatis.log.util.StringConst;
 import org.apache.commons.lang3.StringUtils;
@@ -30,6 +31,9 @@ public class SqlText extends JFrame {
     private JTextArea originalTextArea;
     private JTextArea resultTextArea;
     private JButton buttonClear;
+    private JButton paypalDonate;
+    private JButton alipayDonate;
+    private JButton githubButton;
 
     public SqlText() {
         this.setTitle("restore sql from text"); //设置标题
@@ -39,6 +43,16 @@ public class SqlText extends JFrame {
         buttonCopy.addActionListener(e -> onCopy());
         buttonClear.addActionListener(e -> onClear());
         buttonClose.addActionListener(e -> onClose());
+
+        paypalDonate.setContentAreaFilled(false);
+        paypalDonate.addActionListener(e -> BareBonesBrowserLaunch.openURL("https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=2FQY2FH24H4LC&item_name=MyBatis+Log+Plugin&currency_code=USD&source=url"));
+        alipayDonate.setContentAreaFilled(false);
+        alipayDonate.addActionListener(e -> BareBonesBrowserLaunch.openURL("https://github.com/kookob/mybatis-log-plugin/blob/01b528df60df5cc990b87803e6c0c6ffae19f34c/DONATE.md"));
+
+        githubButton.setBorder(null);
+        githubButton.setContentAreaFilled(false);
+        githubButton.addActionListener(e -> BareBonesBrowserLaunch.openURL("https://github.com/kookob/mybatis-log-plugin"));
+
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
