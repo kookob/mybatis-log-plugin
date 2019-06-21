@@ -47,7 +47,7 @@ public class SqlText extends JFrame {
         paypalDonate.setContentAreaFilled(false);
         paypalDonate.addActionListener(e -> BareBonesBrowserLaunch.openURL("https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=2FQY2FH24H4LC&item_name=MyBatis+Log+Plugin&currency_code=USD&source=url"));
         alipayDonate.setContentAreaFilled(false);
-        alipayDonate.addActionListener(e -> BareBonesBrowserLaunch.openURL("https://github.com/kookob/mybatis-log-plugin/blob/01b528df60df5cc990b87803e6c0c6ffae19f34c/DONATE.md"));
+        alipayDonate.addActionListener(e -> BareBonesBrowserLaunch.openURL("https://github.com/kookob/mybatis-log-plugin/blob/master/DONATE.md"));
 
         githubButton.setBorder(null);
         githubButton.setContentAreaFilled(false);
