@@ -25,6 +25,9 @@ public class RestoreSqlUtil {
         needAssembledType.add("(Timestamp)");
         needAssembledType.add("(Date)");
         needAssembledType.add("(Time)");
+        needAssembledType.add("(LocalDate)");
+        needAssembledType.add("(LocalTime)");
+        needAssembledType.add("(LocalDateTime)");
     }
 
     public static String match(String p, String str) {
