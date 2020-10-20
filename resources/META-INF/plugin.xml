@@ -1,0 +1,19 @@
+<idea-plugin>
+    <id>MyBatisLogPlugin</id>
+    <name>MyBatis Log Plugin</name>
+    <version>2.1.1</version>
+    <vendor email="kookob@gmail.com" url="">ob</vendor>
+
+    <description>
+    <![CDATA[
+        旧版插件停止维护
+    ]]>
+    </description>
+
+    <change-notes>
+    <![CDATA[
+        旧版插件停止维护
+    ]]>
+    </change-notes>
+
+</idea-plugin>
